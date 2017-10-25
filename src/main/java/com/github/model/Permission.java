@@ -37,34 +37,49 @@
 package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
+import org.hibernate.annotations.Table;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.Date;
 import java.util.List;
 
+//@Entity(name = "t_permission")
+//@Table(appliesTo = "t_permission", comment = "权限表 - 资源 + 操作")
 public class Permission {
 	
-
-	//columns START
-	/** id   db_column: id */ 	
+	@Id
+	@GeneratedValue
 	private Integer id;
-	/** parentId   db_column: parent_id */
+
+	@Column(columnDefinition = "int(11) COMMENT '父级菜单id'")
 	private Integer parentId;
-	/** 权限名称   db_column: name */
+
+	@Column(columnDefinition = "varchar(64) COMMENT '权限名称'")
 	private String name;
-	/** 权限代码   db_column: code */
+
+	@Column(columnDefinition = "varchar(64) COMMENT '权限代码'")
 	private String code;
-	/** 菜单前面的图标css   db_column: icon_class */
-	private String iconClass;
-	/** 权限描述   db_column: description */
-	private String description;
-	/** 资源链接地址 - 生成菜单时使用   db_column: url */
+
+	@Column(columnDefinition = "varchar(64) COMMENT '菜单前面的图标css'")
+	private String icon;
+
+	@Column(columnDefinition = "varchar(64) COMMENT '资源链接地址 - 生成菜单时使用'")
 	private String url;
-	/** 该资源是否是菜单标志 - 生成菜单时使用   db_column: menu_status */
-	private Integer menuStatus;
-	/** 是否启用: 0禁用 1启用   db_column: status */
+
+	@Column(columnDefinition = "varchar(128) COMMENT '权限描述'")
+	private String description;
+
+	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
 	private Integer status;
-	/** 创建时间   db_column: create_time */
-	private java.util.Date createTime;
-	//columns END
+
+	@Column(columnDefinition = "datetime COMMENT '创建时间'")
+	private Date createTime;
+
+
+
 
 	private List<Permission> permissionList;
 
@@ -101,12 +116,6 @@ public class Permission {
 	public String getCode() {
 		return this.code;
 	}
-	public void setIconClass(String value) {
-		this.iconClass = value;
-	}
-	public String getIconClass() {
-		return this.iconClass;
-	}
 	public void setDescription(String value) {
 		this.description = value;
 	}
@@ -118,12 +127,6 @@ public class Permission {
 	}
 	public String getUrl() {
 		return this.url;
-	}
-	public void setMenuStatus(Integer value) {
-		this.menuStatus = value;
-	}
-	public Integer getMenuStatus() {
-		return this.menuStatus;
 	}
 	public void setStatus(Integer value) {
 		this.status = value;
@@ -144,6 +147,14 @@ public class Permission {
 
 	public void setPermissionList(List<Permission> permissionList) {
 		this.permissionList = permissionList;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public String toString() {

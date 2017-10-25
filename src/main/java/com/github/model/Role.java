@@ -36,24 +36,34 @@
  */
 package com.github.model;
 
-import org.apache.commons.lang3.builder.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.Table;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.Date;
+
+
+//@Entity(name = "t_role")
+//@Table(appliesTo = "t_role", comment = "角色表")
 public class Role {
-	
 
-	/** id   db_column: id */
+	@Id
+	@GeneratedValue
 	private Integer id;
-	/** 角色名称   db_column: name */
+	@Column(columnDefinition = "varchar(64) COMMENT '角色名称'")
 	private String name;
-	/** 角色代码   db_column: code */
+	@Column(columnDefinition = "varchar(64) COMMENT '角色代码'")
 	private String code;
-	/** 角色描述   db_column: description */
+	@Column(columnDefinition = "varchar(128) COMMENT '角色描述'")
 	private String description;
-	/** 是否启用   db_column: status */
+	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
 	private Integer status;
-	/** 创建时间   db_column: create_time */
-	private java.util.Date createTime;
-	//columns END
+	@Column(columnDefinition = "datetime COMMENT '创建时间'")
+	private Date createTime;
 
 	public Role(){
 	}
@@ -103,21 +113,6 @@ public class Role {
 
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-	}
-	
-	public int hashCode() {
-		return new HashCodeBuilder()
-			.append(getId())
-			.toHashCode();
-	}
-	
-	public boolean equals(Object obj) {
-		if(obj instanceof Role == false) return false;
-		if(this == obj) return true;
-		Role other = (Role)obj;
-		return new EqualsBuilder()
-			.append(getId(),other.getId())
-			.isEquals();
 	}
 }
 
