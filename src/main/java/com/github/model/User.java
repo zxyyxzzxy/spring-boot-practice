@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity(name = "t_user")
 @Table(appliesTo = "t_user", comment = "用户表")
@@ -19,6 +20,8 @@ public class User {
     private String name;
     @Column(columnDefinition = "varchar(128) COMMENT '班级名称'")
     private String className;
+    @Column
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -42,6 +45,14 @@ public class User {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override

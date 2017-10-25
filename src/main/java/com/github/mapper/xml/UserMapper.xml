@@ -6,6 +6,7 @@
 		<result column="id" property="id" />
 		<result column="class_name" property="className" />
 		<result column="name" property="name" />
+		<result column="create_time" property="createTime" />
 	</resultMap>
 
 	<select id="getAllXml" resultMap="BaseResultMap">
