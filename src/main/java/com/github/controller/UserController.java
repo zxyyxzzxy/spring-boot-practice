@@ -1,7 +1,11 @@
 package com.github.controller;
 
 import com.github.mapper.UserMapper;
+import com.github.model.Permission;
+import com.github.model.Role;
 import com.github.model.User;
+import com.github.repository.PermissionRepository;
+import com.github.repository.RoleRepository;
 import com.github.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,17 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping
 public class UserController {
 
 	@Resource private UserMapper userMapper;
+	@Resource private RoleRepository roleRepository;
 	@Resource private UserRepository userRepository;
+	@Resource private PermissionRepository permissionRepository;
 
+	@ResponseBody
 	@GetMapping({"", "/"})
-	public String index() {
+	public Object index() {
 
 //		User user = new User();
 //		user.setName("iMiracle");
@@ -35,7 +44,42 @@ public class UserController {
 //		userList = userMapper.getAllXml();
 //		System.err.println(userList);
 
-		return "index";
+//		Permission permission = new Permission();
+//		permission.setName("a");
+//
+//		Set<Permission> permissionSet = new HashSet<>();
+//		Permission permission1 = new Permission();
+//		permission1.setName("b");
+//		permissionSet.add(permission1);
+//
+//		Permission permission2 = new Permission();
+//		permission2.setName("c");
+//		permissionSet.add(permission2);
+//
+//		permission.setPermissionSet(permissionSet);
+//		permissionRepository.save(permission);
+
+//		List<Permission> permissionList = permissionRepository.getRolePermissionList(1);
+
+
+//		User user = new User();
+//		user.setName("iMiracle");
+//
+//		Role r1 = new Role();
+//		r1.setName("role1");
+//		roleRepository.save(r1);
+//		Role r2 = new Role();
+//		r2.setName("role2");
+//		roleRepository.save(r2);
+//
+//		user.getRoleSet().add(r1);
+//		user.getRoleSet().add(r2);
+//		userRepository.save(user);
+
+		User user = userRepository.findOne(2);
+		userRepository.delete(user);
+
+		return user;
 	}
 
 	@ResponseBody

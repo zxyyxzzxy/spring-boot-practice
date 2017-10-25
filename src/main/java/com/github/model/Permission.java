@@ -39,15 +39,13 @@ package com.github.model;
 import org.apache.commons.lang3.builder.*;
 import org.hibernate.annotations.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-//@Entity(name = "t_permission")
-//@Table(appliesTo = "t_permission", comment = "权限表 - 资源 + 操作")
+@Entity(name = "t_permission")
+@Table(appliesTo = "t_permission", comment = "权限表 - 资源 + 操作")
 public class Permission {
 	
 	@Id
@@ -75,13 +73,16 @@ public class Permission {
 	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
 	private Integer status;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "datetime COMMENT '创建时间'")
 	private Date createTime;
 
 
 
 
-	private List<Permission> permissionList;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "parentId")
+	private Set<Permission> permissionSet;
 
 	public Permission(){
 	}
@@ -141,20 +142,20 @@ public class Permission {
 		return this.createTime;
 	}
 
-	public List<Permission> getPermissionList() {
-		return permissionList;
-	}
-
-	public void setPermissionList(List<Permission> permissionList) {
-		this.permissionList = permissionList;
-	}
-
 	public String getIcon() {
 		return icon;
 	}
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public Set<Permission> getPermissionSet() {
+		return permissionSet;
+	}
+
+	public void setPermissionSet(Set<Permission> permissionSet) {
+		this.permissionSet = permissionSet;
 	}
 
 	public String toString() {

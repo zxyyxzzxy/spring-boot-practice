@@ -40,15 +40,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 
-//@Entity(name = "t_role")
-//@Table(appliesTo = "t_role", comment = "角色表")
+@Entity(name = "t_role")
+@Table(appliesTo = "t_role", comment = "角色表")
 public class Role {
 
 	@Id
@@ -62,8 +60,14 @@ public class Role {
 	private String description;
 	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
 	private Integer status;
+
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "datetime COMMENT '创建时间'")
 	private Date createTime;
+
+	@ManyToMany
+	@JoinTable(name = "t_role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+	private Set<Permission> permissionSet;
 
 	public Role(){
 	}
@@ -109,6 +113,14 @@ public class Role {
 	}
 	public java.util.Date getCreateTime() {
 		return this.createTime;
+	}
+
+	public Set<Permission> getPermissionSet() {
+		return permissionSet;
+	}
+
+	public void setPermissionSet(Set<Permission> permissionSet) {
+		this.permissionSet = permissionSet;
 	}
 
 	public String toString() {
