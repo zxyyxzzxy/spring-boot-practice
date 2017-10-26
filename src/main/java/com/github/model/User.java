@@ -16,13 +16,11 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
-    private String name;
-    @Column(columnDefinition = "varchar(128) COMMENT '班级名称'")
-    private String className;
+    private String userName;
     @Column
     private Date createTime;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();
 
@@ -34,20 +32,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getCreateTime() {

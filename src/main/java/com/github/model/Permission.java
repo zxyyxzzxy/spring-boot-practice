@@ -38,6 +38,7 @@ package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
 import org.hibernate.annotations.Table;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -67,8 +68,11 @@ public class Permission {
 	@Column(columnDefinition = "varchar(64) COMMENT '资源链接地址 - 生成菜单时使用'")
 	private String url;
 
-	@Column(columnDefinition = "varchar(128) COMMENT '权限描述'")
-	private String description;
+	@Column(columnDefinition = "varchar(64) COMMENT '资源链接地址 - 生成菜单时使用'")
+	private String target;
+
+	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
+	private Integer menu;
 
 	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
 	private Integer status;
@@ -77,12 +81,15 @@ public class Permission {
 	@Column(columnDefinition = "datetime COMMENT '创建时间'")
 	private Date createTime;
 
+	@Column(columnDefinition = "varchar(128) COMMENT '权限描述'")
+	private String description;
 
 
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parentId")
-	private Set<Permission> permissionSet;
+	@OrderBy("id ASC")
+	private List<Permission> permissionSet;
 
 	public Permission(){
 	}
@@ -150,11 +157,27 @@ public class Permission {
 		this.icon = icon;
 	}
 
-	public Set<Permission> getPermissionSet() {
+	public Integer getMenu() {
+		return menu;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public void setMenu(Integer menu) {
+		this.menu = menu;
+	}
+
+	public List<Permission> getPermissionSet() {
 		return permissionSet;
 	}
 
-	public void setPermissionSet(Set<Permission> permissionSet) {
+	public void setPermissionSet(List<Permission> permissionSet) {
 		this.permissionSet = permissionSet;
 	}
 

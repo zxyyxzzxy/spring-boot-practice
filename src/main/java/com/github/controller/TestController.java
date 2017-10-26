@@ -7,6 +7,7 @@ import com.github.model.User;
 import com.github.repository.PermissionRepository;
 import com.github.repository.RoleRepository;
 import com.github.repository.UserRepository;
+import com.github.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,11 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping
-public class UserController {
+@RequestMapping("t")
+public class TestController {
 
 	@Resource private UserMapper userMapper;
+	@Resource private UserService userService;
 	@Resource private RoleRepository roleRepository;
 	@Resource private UserRepository userRepository;
 	@Resource private PermissionRepository permissionRepository;
@@ -76,10 +78,9 @@ public class UserController {
 //		user.getRoleSet().add(r2);
 //		userRepository.save(user);
 
-		User user = userRepository.findOne(2);
-		userRepository.delete(user);
 
-		return user;
+
+		return permissionRepository.getUserPermissionTree(1);
 	}
 
 	@ResponseBody
