@@ -117,7 +117,10 @@
                 layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'}, function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     //向服务端发送删除指令
-                    layer.close(index);
+                    $.get("/role/" + data.id + "/delete", function(){
+                        layer.close(index);
+                        layer.msg("删除成功！");
+                    });
                 });
             } else if(layEvent === 'edit'){ //编辑
 

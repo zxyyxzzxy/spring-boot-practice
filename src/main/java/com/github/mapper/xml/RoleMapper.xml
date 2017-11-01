@@ -11,6 +11,10 @@
         <result property="createTime" column="create_time"/>
         <result property="description" column="description"/>
 	</resultMap>
+    
+    <delete id="delete">
+        DELETE FROM t_role WHERE id = #{id}
+    </delete>
 	
 	<select id="getList" parameterType="com.github.model.Role" resultMap="BaseResultMap">
 		SELECT * FROM t_role

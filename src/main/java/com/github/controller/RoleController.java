@@ -9,6 +9,7 @@ import com.github.util.DataTableJson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +34,13 @@ public class RoleController {
 		DataTableJson<Role> dataTableJson = new DataTableJson<>(roleList);
 
 		return dataTableJson;
+	}
+
+	@ResponseBody
+	@GetMapping("{id}/delete")
+	public Object delete(@PathVariable Integer id) {
+		roleMapper.delete(id);
+		return "";
 	}
 
 }
