@@ -10,11 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,11 +39,34 @@ public class RoleController {
 		return dataTableJson;
 	}
 
+	@GetMapping("add")
+	public String add() {
+		return "page/role-add";
+	}
+	@PostMapping("add")
+	public String add(Role role) {
+		role.setCreateTime(new Date());
+		roleMapper.add(role);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/page/success.html";
+	}
+
 	@ResponseBody
 	@GetMapping("{id}/delete")
 	public Object delete(@PathVariable Integer id) {
 		roleMapper.delete(id);
 		return "";
+	}
+
+	@GetMapping("{id}/edit")
+	public Object edit(@PathVariable Integer id, Model model) {
+		model.addAttribute("role", roleMapper.get(id));
+		return "page/role-edit";
+	}
+
+	@PostMapping("update")
+	public String update(Role role) {
+		roleMapper.update(role);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/page/success.html";
 	}
 
 }
