@@ -65,6 +65,7 @@ public class RoleController {
 
 	@PostMapping("update")
 	public String update(Role role) {
+		role.setCreateTime(new Date());
 		roleMapper.update(role);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/page/success.html";
 	}
