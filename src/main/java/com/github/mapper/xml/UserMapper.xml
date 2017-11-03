@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.mapper.UserMapper">
+
+	<resultMap id="BaseResultMap" type="com.github.model.User">
+        <result property="id" column="id"/>
+        <result property="avatar" column="avatar"/>
+        <result property="userName" column="user_name"/>
+        <result property="salt" column="salt"/>
+        <result property="password" column="password"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="realName" column="real_name"/>
+        <result property="phone" column="phone"/>
+        <result property="lastLoginTime" column="last_login_time"/>
+        <result property="loginTimes" column="login_times"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="com.github.mapper.UserMapper.columns">
+	    <![CDATA[
+		id, avatar, user_name, salt, password, nick_name, real_name, phone, last_login_time, login_times, status, create_time, update_time
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="com.github.Userinsert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO t_user (
+        	id, 
+        	avatar, 
+        	user_name, 
+        	salt, 
+        	password, 
+        	nick_name, 
+        	real_name, 
+        	phone, 
+        	last_login_time, 
+        	login_times, 
+        	status, 
+        	create_time, 
+        	update_time
+        ) VALUES (
+        	#{id}, 
+        	#{avatar}, 
+        	#{userName}, 
+        	#{salt}, 
+        	#{password}, 
+        	#{nickName}, 
+        	#{realName}, 
+        	#{phone}, 
+        	#{lastLoginTime}, 
+        	#{loginTimes}, 
+        	#{status}, 
+        	#{createTime}, 
+        	#{updateTime}
+        )
+    ]]>
+		<!--	
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="com.github.Userupdate" >
+    <![CDATA[
+        UPDATE t_user SET
+	        avatar = #{avatar}, 
+	        user_name = #{userName}, 
+	        salt = #{salt}, 
+	        password = #{password}, 
+	        nick_name = #{nickName}, 
+	        real_name = #{realName}, 
+	        phone = #{phone}, 
+	        last_login_time = #{lastLoginTime}, 
+	        login_times = #{loginTimes}, 
+	        status = #{status}, 
+	        create_time = #{createTime}, 
+	        update_time = #{updateTime}
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="com.github.Userdelete">
+    <![CDATA[
+        DELETE FROM t_user WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="com.github.UsergetById" resultMap="BaseResultMap">
+		SELECT <include refid="com.github.Usercolumns" />
+	    <![CDATA[
+		    FROM t_user 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="com.github.UserfindPage.where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(id)">
+				AND id = #{id}
+			</if>
+	       <if test="@Ognl@isNotEmpty(avatar)">
+				AND avatar = #{avatar}
+			</if>
+	       <if test="@Ognl@isNotEmpty(userName)">
+				AND user_name = #{userName}
+			</if>
+	       <if test="@Ognl@isNotEmpty(salt)">
+				AND salt = #{salt}
+			</if>
+	       <if test="@Ognl@isNotEmpty(password)">
+				AND password = #{password}
+			</if>
+	       <if test="@Ognl@isNotEmpty(nickName)">
+				AND nick_name = #{nickName}
+			</if>
+	       <if test="@Ognl@isNotEmpty(realName)">
+				AND real_name = #{realName}
+			</if>
+	       <if test="@Ognl@isNotEmpty(phone)">
+				AND phone = #{phone}
+			</if>
+	       <if test="@Ognl@isNotEmpty(lastLoginTimeBegin)">
+				AND last_login_time >= #{lastLoginTimeBegin}
+		   </if>
+		   <if test="@Ognl@isNotEmpty(lastLoginTimeEnd)">
+				AND last_login_time &lt;= #{lastLoginTimeEnd}
+		   </if>
+	       <if test="@Ognl@isNotEmpty(loginTimes)">
+				AND login_times = #{loginTimes}
+			</if>
+	       <if test="@Ognl@isNotEmpty(status)">
+				AND status = #{status}
+			</if>
+	       <if test="@Ognl@isNotEmpty(createTimeBegin)">
+				AND create_time >= #{createTimeBegin}
+		   </if>
+		   <if test="@Ognl@isNotEmpty(createTimeEnd)">
+				AND create_time &lt;= #{createTimeEnd}
+		   </if>
+	       <if test="@Ognl@isNotEmpty(updateTimeBegin)">
+				AND update_time >= #{updateTimeBegin}
+		   </if>
+		   <if test="@Ognl@isNotEmpty(updateTimeEnd)">
+				AND update_time &lt;= #{updateTimeEnd}
+		   </if>
+		</where>
+	</sql>
+		
+    <select id="com.github.UserfindPage.count" resultType="long">
+        SELECT count(*) FROM t_user 
+		<include refid="com.github.UserfindPage.where"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="com.github.UserfindPage" resultMap="BaseResultMap">
+    	SELECT <include refid="com.github.Usercolumns" />
+	    FROM t_user 
+		<include refid="com.github.UserfindPage.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+    <select id="com.github.UsergetByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+	    SELECT <include refid="com.github.Usercolumns"/>
+	    <![CDATA[
+	        FROM t_user where phone = #{phone}
+	    ]]>
+    </select>
+    
+	
+</mapper>
+
