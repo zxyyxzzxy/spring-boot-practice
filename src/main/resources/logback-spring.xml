@@ -15,12 +15,6 @@
     <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
 
-    <logger name="log4jdbc.debug" level="OFF"/>
-    <logger name="jdbc.connection" level="OFF"/>
-    <logger name="jdbc.audit" level="OFF"/>
-    <logger name="jdbc.sqlonly" level="OFF"/>
-    <logger name="jdbc.resultset" level="OFF"/>
-    <logger name="jdbc.resultsettable" level="OFF"/>
     <logger name="javax" level="INFO"/>
     <logger name="org.apache.tomcat" level="INFO"/>
     <logger name="org.apache.coyote" level="INFO"/>
@@ -34,7 +28,6 @@
     <logger name="org.springframework.boot.context" level="INFO"/>
     <logger name="org.springframework.boot.web.filter" level="INFO"/>
 
-    <logger name="java.sql.PreparedStatement" level="INFO"/>
     <logger name="net.sf.ehcache.config.ConfigurationHelper" level="INFO"/>
     <logger name="net.sf.ehcache.constructs.web.filter.Filter" level="INFO"/>
     <logger name="net.sf.ehcache.constructs.web.filter.GzipFilter" level="INFO"/>

@@ -4,6 +4,7 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -16,7 +17,9 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Configuration
 public class ShiroConfig {
@@ -51,10 +54,15 @@ public class ShiroConfig {
 	}
 
 	@Bean(name="securityManager")
-	public DefaultWebSecurityManager securityManager(CacheManager shiroCacheManager, AdminRealm adminRealm) {
+	public DefaultWebSecurityManager securityManager(CacheManager shiroCacheManager, AdminRealm adminRealm, SsoRealm ssoRealm) {
+
+		Set<Realm> realmSet = new HashSet<Realm>();
+		realmSet.add(adminRealm);
+		realmSet.add(ssoRealm);
+
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-		manager.setRealm(adminRealm);
 		manager.setCacheManager(shiroCacheManager);
+		manager.setRealms(realmSet);
 		return manager;
 	}
 	

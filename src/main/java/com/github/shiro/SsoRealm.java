@@ -5,7 +5,13 @@ import com.github.model.User;
 import com.github.service.PermissionService;
 import com.github.service.RoleService;
 import com.github.util.Constants;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -15,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
-public class AdminRealm extends AuthorizingRealm {
+public class SsoRealm extends AuthorizingRealm {
 
     @Resource private UserMapper userMapper;
     @Resource private RoleService roleService;
@@ -23,12 +29,20 @@ public class AdminRealm extends AuthorizingRealm {
 
     @Override
     public boolean supports(AuthenticationToken token) {
-    	return token instanceof UsernamePasswordToken;
+    	return token instanceof SsoToken;
     }
     
     /** 认证 */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+
+        Integer uid = (Integer) token.getPrincipal();
+        Integer fid = (Integer) token.getCredentials();
+
+        // 1. SSO用户已在本系统授权或已绑定本系统用户
+        // 2. 去SSO验证该用户已通过认证
+
+
 
         String userName = (String) token.getPrincipal();
         User user = userMapper.getByUserName(userName);
@@ -41,9 +55,7 @@ public class AdminRealm extends AuthorizingRealm {
             throw new LockedAccountException(); //帐号锁定
         }
         
-        // 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配, 如果觉得人家的不好可以自定义实现
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(), ByteSource.Util.bytes(user.getSalt()), super.getName());
-        return authenticationInfo;
+        return new SimpleAuthenticationInfo(uid, fid, super.getName());
     }
     
     /** 授权 */
