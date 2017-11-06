@@ -62,7 +62,16 @@
         </where>
         ORDER BY id DESC
 	</select>
-		
+
+    <select id="getUserRoleList" resultMap="BaseResultMap">
+        SELECT t.* FROM t_role t, t_user_role r
+        WHERE r.role_id = t.id AND r.user_id = #userId#
+    </select>
+
+    <select id="getMap" resultType="java.util.HashMap">
+        SELECT * FROM t_role
+    </select>
+
 
 </mapper>
 

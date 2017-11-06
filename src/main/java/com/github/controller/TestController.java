@@ -25,14 +25,7 @@ public class TestController {
 	@GetMapping({"", "/"})
 	public Object index() {
 
-		PageHelper.startPage(2, 10);
-		List<Permission> permissionList = permissionMapper.getList();
-		System.err.println(permissionList.size());
-
-		Page page = (Page) permissionList;
-		System.err.println(page);
-
-		return page;
+		return permissionMapper.getUserPermissionSet(1).size();
 	}
 
 }

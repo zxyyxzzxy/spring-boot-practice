@@ -42,6 +42,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -54,4 +55,6 @@ public interface RoleMapper {
 
 	List<Role> getList();
 	List<Role> getList(Role role);
+	List<Map<String, Object>> getMap();
+	List<Role> getUserRoleList(Integer userId);
 }

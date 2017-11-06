@@ -36,32 +36,21 @@
  */
 package com.github.mapper;
 
+import com.github.model.User;
 import org.apache.commons.lang3.builder.*;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 
+@Mapper
 @Repository
-public class UserMapper extends BaseIbatis3Dao<User, Integer>{
-	
-	@Override
-	public String getIbatisMapperNamesapce() {
-		return "User";
-	}
-	
-	public void saveOrUpdate(User entity) {
-		if(entity.getId() == null) 
-			save(entity);
-		else 
-			update(entity);
-	}
-	
-	public Page findPage(UserQuery query) {
-		return pageQuery("User.findPage",query);
-	}
-	
-	public User getByPhone(String v) {
-		return (User)getSqlSessionTemplate().selectOne("User.getByPhone",v);
-	}	
-	
+public interface UserMapper {
 
+	void add(User user);
+	void delete(Integer id);
+	void update(User user);
+	User get(Integer id);
+
+
+	User getByUserName(String userName);
 }

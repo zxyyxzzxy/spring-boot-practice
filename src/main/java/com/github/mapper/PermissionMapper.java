@@ -42,6 +42,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 @Repository
@@ -53,6 +54,7 @@ public interface PermissionMapper {
 	@Select("SELECT * FROM t_permission")
 	List<Permission> getList();
 
+	Set<Permission> getUserPermissionSet(Integer userId);
 	List<Permission> getUserMenuPermissionList(Integer userId);
 	List<Permission> getMenuChildPermissionList(Integer id);
 }
