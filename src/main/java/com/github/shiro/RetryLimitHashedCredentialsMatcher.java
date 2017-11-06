@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//@Component
+@Component
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
 	// 声明一个缓存接口，这个接口是Shiro缓存管理的一部分，它的具体实现可以通过外部容器注入

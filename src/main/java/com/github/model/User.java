@@ -43,7 +43,6 @@ public class User {
 	//alias
 	public static final String TABLE_ALIAS = "User";
 	public static final String ALIAS_ID = "id";
-	public static final String ALIAS_AVATAR = "头像url";
 	public static final String ALIAS_USER_NAME = "用户名";
 	public static final String ALIAS_SALT = "盐";
 	public static final String ALIAS_PASSWORD = "密码";
@@ -60,9 +59,7 @@ public class User {
 	//columns START
 	/** id   db_column: id */ 	
 	private Integer id;
-	/** 头像url   db_column: avatar */ 	
-	private String avatar;
-	/** 用户名   db_column: user_name */ 	
+	/** 用户名   db_column: user_name */
 	private String userName;
 	/** 盐   db_column: salt */ 	
 	private String salt;
@@ -100,12 +97,6 @@ public class User {
 	}
 	public Integer getId() {
 		return this.id;
-	}
-	public void setAvatar(String value) {
-		this.avatar = value;
-	}
-	public String getAvatar() {
-		return this.avatar;
 	}
 	public void setUserName(String value) {
 		this.userName = value;

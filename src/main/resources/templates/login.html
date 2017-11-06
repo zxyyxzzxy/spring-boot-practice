@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -12,38 +12,44 @@
 <body>
 
 <div class="login-main">
-    <header class="layui-elip">后台登录</header>
+    <header class="layui-elip">超星后台登录</header>
     <form action="/login" method="post" class="layui-form">
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="用户名" autocomplete="off"
-                   class="layui-input">
+            <input type="text" name="username" value="su" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <input type="password" name="password" lay-verify="required" placeholder="密码" autocomplete="off"
-                   class="layui-input">
+            <input type="password" name="password" value="123456" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline login-btn">
             <button type="submit" class="layui-btn">登录</button>
         </div>
         <hr/>
         <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary">QQ登录</button>
+            <button type="button" id="other-login" class="layui-btn layui-btn-primary">超星集团账户登录</button>
         </div>
     </form>
 </div>
 
 
 <script src="assets/layui/layui.js"></script>
-<script type="text/javascript">
-    layui.use(['form'], function () {
+<script type="text/javascript" th:inline="javascript">
+    layui.use(['jquery', 'layer'], function () {
 
         // 操作对象
-        var form = layui.form
-                , $ = layui.jquery;
+        var layer = layui.layer;
+        var $ = layui.jquery;
 
-        // you code ...
+        var errorMessage = [[${errorMessage}]];
+        if (errorMessage != null) {
+            layer.msg(errorMessage, {icon: 2});
+        }
 
 
+        $('#other-login').click(function(){
+            layer.msg('暂未开放，敬请期待！', {icon: 6});
+//            var url = "http://passport2.chaoxing.com/login?fid=1385" + "&refer=" + window.location.origin + "/index";
+//            window.location.href = url;
+        });
     });
 </script>
 </body>

@@ -18,7 +18,7 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Configuration
+@Configuration
 public class ShiroConfig {
 
 	@Bean
@@ -39,13 +39,12 @@ public class ShiroConfig {
 		bean.setSuccessUrl("/index");
 		bean.setUnauthorizedUrl("/unauthorize");
 		
-		Map<String, Filter> filters = new HashMap<String, Filter>();
+		Map<String, Filter> filters = bean.getFilters();
 //		filters.put("perms", urlPermissionsFilter());
 		bean.setFilters(filters);
 		
 		Map<String, String> chains = new HashMap<String, String>();
 		chains.put("/assets/**", "anon");
-		chains.put("/logout", "logout");
 		chains.put("/**", "authc");
 		bean.setFilterChainDefinitionMap(chains);
 		return bean;
