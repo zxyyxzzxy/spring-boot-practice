@@ -21,6 +21,11 @@ public class AdminRealm extends AuthorizingRealm {
     @Resource private RoleService roleService;
     @Resource private PermissionService permissionService;
 
+    public AdminRealm() {
+        super();
+        super.setCachingEnabled(false);
+    }
+
     @Override
     public boolean supports(AuthenticationToken token) {
     	return token instanceof UsernamePasswordToken;

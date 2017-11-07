@@ -34,7 +34,7 @@ public class ShiroConfig {
         return filterRegistration;
 	}
 	
-	@Bean(name = "shiroFilter")
+	@Bean("shiroFilter")
 	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(securityManager);
@@ -53,7 +53,7 @@ public class ShiroConfig {
 		return bean;
 	}
 
-	@Bean(name="securityManager")
+	@Bean("securityManager")
 	public DefaultWebSecurityManager securityManager(CacheManager shiroCacheManager, AdminRealm adminRealm, SsoRealm ssoRealm) {
 
 		Set<Realm> realmSet = new HashSet<Realm>();
@@ -74,6 +74,7 @@ public class ShiroConfig {
 		adminRealm.setCredentialsMatcher(credentialsMatcher);
 		return adminRealm;
 	}
+
 	
 	@Bean
 	public URLPermissionsFilter urlPermissionsFilter() {

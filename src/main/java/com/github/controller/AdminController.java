@@ -2,6 +2,7 @@ package com.github.controller;
 
 import com.github.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping
-public class LoginController {
+public class AdminController {
 
 	@Resource private UserService userService;
 
@@ -36,7 +37,7 @@ public class LoginController {
 	@PostMapping({"", "/", "login"})
 	public String login(HttpServletRequest request, Model model) {
 
-		// 认证未通过或反复POST认真进入这里
+		// 认证未通过或反复POST认证, 进入这里
 		Subject subject = SecurityUtils.getSubject();
 		if (subject.isAuthenticated()) {
 			return UrlBasedViewResolver.FORWARD_URL_PREFIX + "/index";
@@ -48,6 +49,8 @@ public class LoginController {
 		if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
 			errorMessage = "用户名或密码错误";
 		} else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
+			errorMessage = "用户名或密码错误";
+		} else if (AuthenticationException.class.getName().equals(exceptionClassName)) {
 			errorMessage = "用户名或密码错误";
 		} else if (exceptionClassName != null) {
 			errorMessage = "其他错误：" + exceptionClassName;
