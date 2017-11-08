@@ -48,6 +48,7 @@ public class ShiroConfig {
 		
 		Map<String, String> chains = new HashMap<String, String>();
 		chains.put("/assets/**", "anon");
+		chains.put("/t/**", "anon");
 		chains.put("/**", "authc");
 		bean.setFilterChainDefinitionMap(chains);
 		return bean;

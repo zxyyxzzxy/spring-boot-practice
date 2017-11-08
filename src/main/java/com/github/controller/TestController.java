@@ -3,9 +3,11 @@ package com.github.controller;
 import com.github.mapper.PermissionMapper;
 import com.github.mapper.RoleMapper;
 import com.github.model.Permission;
+import com.github.model.User;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.service.UserService;
+import com.github.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +25,9 @@ public class TestController {
 
 	@ResponseBody
 	@GetMapping({"", "/"})
-	public Object index() {
+	public Object index(@CurrentUser User loginUser) {
 
-		return permissionMapper.getUserPermissionSet(1).size();
+		return loginUser;
 	}
 
 }

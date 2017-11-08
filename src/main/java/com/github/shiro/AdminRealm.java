@@ -5,6 +5,7 @@ import com.github.model.User;
 import com.github.service.PermissionService;
 import com.github.service.RoleService;
 import com.github.util.Constants;
+import com.github.util.SpringContextHolder;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -37,6 +38,7 @@ public class AdminRealm extends AuthorizingRealm {
 
         String userName = (String) token.getPrincipal();
         User user = userMapper.getByUserName(userName);
+
 
         if(user == null) {
             throw new UnknownAccountException();//没找到帐号

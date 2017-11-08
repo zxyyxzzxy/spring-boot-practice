@@ -9,6 +9,12 @@
     <title>Data-Table 表格</title>
     <link rel="stylesheet" href="../assets/layui/css/layui.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .layui-form-switch{
+            box-sizing: content-box;
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body class="body">
 
@@ -125,6 +131,15 @@
                 showPage('编辑', "/role/" + data.id + "/edit");
             }
         });
+
+        // switch
+        form.on('switch', function(data){
+            var index = layer.msg('修改中，请稍候',{icon: 16});
+            setTimeout(function(){
+                layer.close(index);
+                layer.msg("展示状态修改成功！");
+            },2000);
+        })
 
         /*弹出层*/
         /*
