@@ -25,9 +25,10 @@ public class TestController {
 
 	@ResponseBody
 	@GetMapping({"", "/"})
-	public Object index(@CurrentUser User loginUser) {
+	public Object index() {
 
-		return loginUser;
+		return roleMapper.getList();
+//		return roleMapper.getMap();
 	}
 
 }

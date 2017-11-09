@@ -38,8 +38,10 @@ package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
 
-public class User {
-	
+import java.io.Serializable;
+
+public class User implements Serializable {
+
 	//alias
 	public static final String TABLE_ALIAS = "User";
 	public static final String ALIAS_ID = "id";
@@ -54,8 +56,8 @@ public class User {
 	public static final String ALIAS_STATUS = "状态 1可用，0禁用";
 	public static final String ALIAS_CREATE_TIME = "创建时间";
 	public static final String ALIAS_UPDATE_TIME = "修改时间";
-	
-	
+	private static final long serialVersionUID = 7692382079992482707L;
+
 	//columns START
 	/** id   db_column: id */ 	
 	private Integer id;
