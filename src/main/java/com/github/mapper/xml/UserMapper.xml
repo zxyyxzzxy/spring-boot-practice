@@ -5,6 +5,8 @@
 
 	<resultMap id="BaseResultMap" type="com.github.model.User">
         <result property="id" column="id"/>
+        <result property="fid" column="id"/>
+        <result property="uid" column="id"/>
         <result property="userName" column="user_name"/>
         <result property="salt" column="salt"/>
         <result property="password" column="password"/>
@@ -21,7 +23,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="com.github.mapper.UserMapper.columns">
 	    <![CDATA[
-		id, user_name, salt, password, nick_name, real_name, phone, last_login_time, login_times, status, create_time, update_time
+		id, fid, uid, user_name, salt, password, nick_name, real_name, phone, last_login_time, login_times, status, create_time, update_time
 	    ]]>
 	</sql>
 
@@ -30,6 +32,8 @@
     <![CDATA[
         INSERT INTO t_user (
         	id, 
+        	fid,
+        	uid,
         	user_name,
         	salt, 
         	password, 
@@ -43,6 +47,8 @@
         	update_time
         ) VALUES (
         	#{id}, 
+        	#{fid},
+        	#{uid},
         	#{userName},
         	#{salt}, 
         	#{password}, 

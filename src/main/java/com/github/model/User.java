@@ -59,6 +59,8 @@ public class User {
 	//columns START
 	/** id   db_column: id */ 	
 	private Integer id;
+	private Integer fid;
+	private Integer uid;
 	/** 用户名   db_column: user_name */
 	private String userName;
 	/** 盐   db_column: salt */ 	
@@ -163,6 +165,22 @@ public class User {
 	}
 	public java.util.Date getUpdateTime() {
 		return this.updateTime;
+	}
+
+	public Integer getFid() {
+		return fid;
+	}
+
+	public void setFid(Integer fid) {
+		this.fid = fid;
+	}
+
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
 	}
 
 	public String toString() {

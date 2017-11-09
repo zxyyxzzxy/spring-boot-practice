@@ -38,7 +38,7 @@ public class AdminRealm extends AuthorizingRealm {
 
         String userName = (String) token.getPrincipal();
         User user = userMapper.getByUserName(userName);
-
+		SpringContextHolder.getSession().setAttribute(Constants.SESSION_CURRENT_USER, user);
 
         if(user == null) {
             throw new UnknownAccountException();//没找到帐号

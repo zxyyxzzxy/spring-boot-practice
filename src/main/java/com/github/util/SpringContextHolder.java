@@ -11,6 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候中取出ApplicaitonContext.
@@ -72,6 +73,15 @@ public class SpringContextHolder implements ApplicationContextAware {
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = attributes.getRequest();
 		return request;
+	}
+	
+	/**
+	 * 获取当前用户的HttpSession对象
+	 */
+	public static HttpSession getSession() {
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		HttpServletRequest request = attributes.getRequest();
+		return request.getSession();
 	}
 	
 	/**
