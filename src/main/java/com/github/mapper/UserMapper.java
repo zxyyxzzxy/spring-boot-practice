@@ -39,6 +39,7 @@ package com.github.mapper;
 import com.github.model.User;
 import org.apache.commons.lang3.builder.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 
@@ -52,5 +53,7 @@ public interface UserMapper {
 	User get(Integer id);
 
 
+	@Select("SELECT * FROM t_user t WHERE t.uid = #{uid}")
+	User getByUid(Integer uid);
 	User getByUserName(String userName);
 }

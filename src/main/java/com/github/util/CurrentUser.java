@@ -17,7 +17,7 @@ public @interface CurrentUser {
     /**
      * 当前用户在session中的名字
      */
-    String value() default Constants.SESSION_CURRENT_USER;
+    String value() default Constants.LOGIN_USER;
 
 }
 

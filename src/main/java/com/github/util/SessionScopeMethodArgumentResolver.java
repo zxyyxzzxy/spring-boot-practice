@@ -37,7 +37,7 @@ public class SessionScopeMethodArgumentResolver implements HandlerMethodArgument
 			throw new IllegalStateException("SessionScope Annotation must have a value.");
 		}
         
-        if (annotationValue.equals(Constants.SESSION_CURRENT_USER)) {
+        if (annotationValue.equals(Constants.LOGIN_USER)) {
         	// 兼容APP, token方式解析
         	String token = webRequest.getHeader("X-Auth-Token");
         	if (StringUtils.isNotEmpty(token)) {

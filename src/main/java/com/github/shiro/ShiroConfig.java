@@ -16,8 +16,8 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,9 +46,14 @@ public class ShiroConfig {
 //		filters.put("perms", urlPermissionsFilter());
 		bean.setFilters(filters);
 		
-		Map<String, String> chains = new HashMap<String, String>();
+		Map<String, String> chains = new LinkedHashMap<String, String>();
 		chains.put("/assets/**", "anon");
+		chains.put("/favicon.ico", "anon");
 		chains.put("/t/**", "anon");
+		chains.put("/logout", "anon");
+		chains.put("/login", "authc");
+		chains.put("/login/sso", "anon");
+		chains.put("/login/sso/callback", "anon");
 		chains.put("/**", "authc");
 		bean.setFilterChainDefinitionMap(chains);
 		return bean;

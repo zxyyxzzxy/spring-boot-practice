@@ -40,7 +40,7 @@
     <logger name="org.apache.shiro.spring.web.ShiroFilterFactoryBean" level="DEBUG"/>
     <logger name="org.apache.shiro.subject.support.DelegatingSubject" level="DEBUG"/>
     <logger name="org.apache.shiro.util.ThreadContext" level="DEBUG"/>
-    <logger name="org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver" level="DEBUG"/>
+    <logger name="org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver" level="ALL"/>
     <logger name="org.apache.shiro.web.filter.PathMatchingFilter" level="DEBUG"/>
     <logger name="org.apache.shiro.web.mgt.CookieRememberMeManager" level="DEBUG"/>
     <logger name="org.apache.shiro.web.servlet.AbstractShiroFilter" level="DEBUG"/>

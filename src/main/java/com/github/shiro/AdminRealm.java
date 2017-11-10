@@ -12,7 +12,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -21,11 +20,6 @@ public class AdminRealm extends AuthorizingRealm {
     @Resource private UserMapper userMapper;
     @Resource private RoleService roleService;
     @Resource private PermissionService permissionService;
-
-    public AdminRealm() {
-        super();
-        super.setCachingEnabled(false);
-    }
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -38,7 +32,6 @@ public class AdminRealm extends AuthorizingRealm {
 
         String userName = (String) token.getPrincipal();
         User user = userMapper.getByUserName(userName);
-		SpringContextHolder.getSession().setAttribute(Constants.SESSION_CURRENT_USER, user);
 
         if(user == null) {
             throw new UnknownAccountException();//没找到帐号
@@ -47,6 +40,7 @@ public class AdminRealm extends AuthorizingRealm {
         if(Constants.STATUS_FALSE.equals(user.getStatus())) {
             throw new LockedAccountException(); //帐号锁定
         }
+        SpringContextHolder.getSession().setAttribute(Constants.LOGIN_USER, user);
         
         // 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配, 如果觉得人家的不好可以自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(), ByteSource.Util.bytes(user.getSalt()), super.getName());

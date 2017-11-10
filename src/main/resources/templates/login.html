@@ -23,9 +23,9 @@
         <div class="layui-input-inline login-btn">
             <button type="submit" class="layui-btn">登录</button>
         </div>
-        <hr/>
-        <div class="layui-input-inline">
-            <button type="button" id="other-login" class="layui-btn layui-btn-primary">超星集团账户登录</button>
+        <hr class="layui-bg-green">
+        <div class="layui-input-block">
+            <a href="/login/sso" class="layui-btn layui-btn-primary">超星集团账户登录</a>
         </div>
     </form>
 </div>
@@ -33,23 +33,15 @@
 
 <script src="assets/layui/layui.js"></script>
 <script type="text/javascript" th:inline="javascript">
-    layui.use(['jquery', 'layer'], function () {
+    layui.use(['layer'], function () {
 
         // 操作对象
         var layer = layui.layer;
-        var $ = layui.jquery;
 
         var errorMessage = [[${errorMessage}]];
         if (errorMessage != null) {
             layer.msg(errorMessage, {icon: 2});
         }
-
-
-        $('#other-login').click(function(){
-            layer.msg('暂未开放，敬请期待！', {icon: 6});
-//            var url = "http://passport2.chaoxing.com/login?fid=1385" + "&refer=" + window.location.origin + "/index";
-//            window.location.href = url;
-        });
     });
 </script>
 </body>

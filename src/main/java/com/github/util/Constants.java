@@ -8,7 +8,7 @@ public final class Constants {
 	public static final String DOMAIN_NAME = "http://www.chaoxing.com/";
 	public static final String SYSTEM_NAME = "后台管理系统";
 
-	public static final String SESSION_CURRENT_USER = "loginUser";
+	public static final String LOGIN_USER = "loginUser";
 
 	/** 通用状态 */
 	public static final Integer STATUS_TRUE = 1;

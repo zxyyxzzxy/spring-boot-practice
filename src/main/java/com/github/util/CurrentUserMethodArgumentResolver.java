@@ -42,7 +42,7 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
             Session session = subject.getSession();
             String username = (String) subject.getPrincipal();
 //            user = userService.getByPhone(username);
-            session.setAttribute(Constants.SESSION_CURRENT_USER, user);
+            session.setAttribute(Constants.LOGIN_USER, user);
 		} else {
 			throw new IllegalStateException("CurrentUser Annotation doesn't get a value in session, check if user authenticated.");
 		}

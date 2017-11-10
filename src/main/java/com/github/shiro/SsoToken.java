@@ -19,12 +19,12 @@ public class SsoToken implements AuthenticationToken {
 
 	@Override
 	public Object getPrincipal() {
-		return this.fid;
+		return this.uid;
 	}
 
 	@Override
 	public Object getCredentials() {
-		return this.uid;
+		return this.fid;
 	}
 
 	
