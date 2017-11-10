@@ -5,8 +5,8 @@
 
 	<resultMap id="BaseResultMap" type="com.github.model.User">
         <result property="id" column="id"/>
-        <result property="fid" column="id"/>
-        <result property="uid" column="id"/>
+        <result property="fid" column="fid"/>
+        <result property="uid" column="uid"/>
         <result property="userName" column="user_name"/>
         <result property="salt" column="salt"/>
         <result property="password" column="password"/>
