@@ -1,13 +1,17 @@
 package com.github.util;
 
 import org.springframework.beans.BeansException;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpSession;
 /**
  * 以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候中取出ApplicaitonContext.
  */
+@Configuration
 public class SpringContextHolder implements ApplicationContextAware {
 
 	private static ApplicationContext applicationContext = null;
@@ -96,9 +101,7 @@ public class SpringContextHolder implements ApplicationContextAware {
 	 * 获取ServletContext对象
 	 */
 	public static ServletContext getServletContext() {
-		WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
-		ServletContext servletContext = webApplicationContext.getServletContext();
-		return servletContext;
+		return getRequest().getServletContext();
 	}
 	
 	/**

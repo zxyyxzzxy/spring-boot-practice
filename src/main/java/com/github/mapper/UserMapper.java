@@ -42,6 +42,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 
 @Mapper
 @Repository
@@ -56,4 +59,5 @@ public interface UserMapper {
 	@Select("SELECT * FROM t_user t WHERE t.uid = #{uid}")
 	User getByUid(Integer uid);
 	User getByUserName(String userName);
+	List<Map<String, Object>> getManageList();
 }

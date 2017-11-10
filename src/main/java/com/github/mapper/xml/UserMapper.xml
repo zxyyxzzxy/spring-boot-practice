@@ -108,6 +108,13 @@
 	    ]]>
 	</select>
 
+    <select id="getManageList" resultType="java.util.HashMap">
+        SELECT t.*, GROUP_CONCAT(r.name) AS roleName FROM t_user t
+        LEFT JOIN t_user_role ur ON t.id = ur.user_id
+        LEFT JOIN t_role r ON r.id = ur.role_id
+        GROUP BY t.id
+    </select>
+
 	
 </mapper>
 

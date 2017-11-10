@@ -50,6 +50,7 @@ public class ShiroConfig {
 		chains.put("/assets/**", "anon");
 		chains.put("/favicon.ico", "anon");
 		chains.put("/t/**", "anon");
+		chains.put("/upload/**", "anon");
 		chains.put("/logout", "anon");
 		chains.put("/login", "authc");
 		chains.put("/login/sso", "anon");
