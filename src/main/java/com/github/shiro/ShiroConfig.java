@@ -67,9 +67,8 @@ public class ShiroConfig {
 		realmSet.add(adminRealm);
 		realmSet.add(ssoRealm);
 
-		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+		DefaultWebSecurityManager manager = new DefaultWebSecurityManager(realmSet);
 		manager.setCacheManager(shiroCacheManager);
-		manager.setRealms(realmSet);
 		return manager;
 	}
 	

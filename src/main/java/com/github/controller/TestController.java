@@ -2,6 +2,8 @@ package com.github.controller;
 
 import com.github.mapper.PermissionMapper;
 import com.github.mapper.RoleMapper;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,10 @@ public class TestController {
 	@GetMapping({"", "/"})
 	public Object index() {
 
-		return roleMapper.getList();
+		Subject subject = SecurityUtils.getSubject();
+		subject.hasRole("su");
+
+		return subject.hasRole("su");
 //		return roleMapper.getMap();
 	}
 

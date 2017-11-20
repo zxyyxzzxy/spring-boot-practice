@@ -15,11 +15,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		argumentResolvers.add(new CurrentUserMethodArgumentResolver());
 		super.addArgumentResolvers(argumentResolvers);
 	}
-
-//	@Override
-//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/**").addResourceLocations("file:${spring.web.upload-location}");
-//		super.addResourceHandlers(registry);
-//	}
 }
 
