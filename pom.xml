@@ -44,6 +44,10 @@
 					<groupId>com.fasterxml.jackson.core</groupId>
 					<artifactId>jackson-databind</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -141,6 +145,24 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layout>ZIP</layout>
+					<!--去除在生产环境中不变的依赖-->
+					<excludeGroupIds>
+						org.springframework,
+						org.springframework.boot,
+						org.springframework.data,
+						commons-beanutils,
+						commons-codec,
+						org.apache.tomcat.embed,
+						org.slf4j,
+						com.alibaba,
+						ch.qos.logback,
+						org.yaml,
+						nz.net.ultraq.thymeleaf,
+						org.thymeleaf,
+					</excludeGroupIds>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
