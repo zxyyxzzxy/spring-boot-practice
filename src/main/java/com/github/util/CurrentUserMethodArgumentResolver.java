@@ -5,6 +5,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -15,10 +16,10 @@ import javax.annotation.Resource;
 /**
  * <p>自定义方法参数解析器</p>
  */
+@Component
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Resource private UserService userService;
-
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -27,7 +28,7 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
         }
         return false;
     }
-    
+
     /** 解析参数, 返回参数值 */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {

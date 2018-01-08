@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 
+import java.nio.charset.Charset;
+
 /** Bean配置管理 */
 @Configuration
 public class BeanConfig {
@@ -30,7 +32,6 @@ public class BeanConfig {
 				SerializerFeature.DisableCircularReferenceDetect,
 				SerializerFeature.PrettyFormat
 		);
-
 		fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
 
 		return new HttpMessageConverters((HttpMessageConverter<?>) fastJsonHttpMessageConverter);

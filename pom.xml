@@ -143,26 +143,48 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
 				<configuration>
-					<layout>ZIP</layout>
-					<!--去除在生产环境中不变的依赖-->
-					<excludeGroupIds>
-						org.springframework,
-						org.springframework.boot,
-						org.springframework.data,
-						commons-beanutils,
-						commons-codec,
-						org.apache.tomcat.embed,
-						org.slf4j,
-						com.alibaba,
-						ch.qos.logback,
-						org.yaml,
-						nz.net.ultraq.thymeleaf,
-						org.thymeleaf,
-					</excludeGroupIds>
+					<archive>
+						<manifest>
+							<mainClass>com.github.Application</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>./</Class-Path>
+						</manifestEntries>
+					</archive>
+					<includes>
+						<include>ehcache.xml</include>
+						<include>**/xml/*.xml</include>
+						<include>**/*.class</include>
+						<include>templates/**</include>
+						<include>static/**</include>
+					</includes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<!-- not append assembly id in release file name -->
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>./package.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
